@@ -1,12 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { UsersModule } from './users/users.module';
-import { MoService } from './prisma/mo/mo.service';
+
+import { ResultsModule } from './results/results.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UsersModule],
-  controllers: [AppController],
-  providers: [AppService, MoService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    UsersModule,
+    ResultsModule,
+  ],
 })
-export class AppModule {}
+export class AppModule { }

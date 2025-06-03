@@ -13,13 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id        String @id @default(uuid())
   email     String @unique
+  fullname  String
   password  String
   education String
 
   result Results[]
+
+  @@map("users")
 }
 
 model Results {
@@ -27,5 +30,7 @@ model Results {
   test String
 
   userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
+  user   Users   @relation(fields: [userId], references: [id])
+
+  @@map("results")
 }

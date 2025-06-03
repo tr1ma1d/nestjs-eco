@@ -7,11 +7,15 @@ export class UsersService {
     constructor(private readonly prismaService: PrismaService) {
     }
 
+    async findAll(){
+        return await this.prismaService.users.findMany();
+    }
+
     async login(dto: LoginUserDto) {
         try {
             const { email, password } = dto;
-            const user = await this.prismaService.user.findUnique({
-                where: { email },
+            const user = await this.prismaService.users.findUnique({
+                where: { email: email },
                 select: {
                     id: true,
                     password: true
@@ -31,11 +35,12 @@ export class UsersService {
     }
 
     async create(dto: CreateUserDto) {
-        const { email, password, education } = dto;
+        const { email, fullname, password, education } = dto;
 
-        var user = await this.prismaService.user.create({
+        var user = await this.prismaService.users.create({
             data: {
                 email,
+                fullname,
                 password,
                 education
             }
