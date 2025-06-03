@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/co
 import { CreateUserDto, LoginUserDto } from './dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+
 @Injectable()
 export class UsersService {
     constructor(private readonly prismaService: PrismaService) {
@@ -29,7 +30,6 @@ export class UsersService {
             return user;
         }
         catch (error) {
-            console.error('Login error: ', error);
             throw error;
         }
     }
