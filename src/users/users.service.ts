@@ -17,10 +17,6 @@ export class UsersService {
             const { email, password } = dto;
             const user = await this.prismaService.users.findUnique({
                 where: { email: email },
-                select: {
-                    id: true,
-                    password: true
-                }
             });
 
             if (!user) throw new NotFoundException('Пользователь не найден');
